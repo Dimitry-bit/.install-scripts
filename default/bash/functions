@@ -1,0 +1,27 @@
+# Transcode any image to JPG image that's great for shrinking wallpapers
+img2jpg() {
+  img="$1"
+  shift
+
+  magick "$img" $@ -quality 95 -strip ${img%.*}-optimized.jpg
+}
+
+# Transcode any image to JPG image that's great for sharing online without being too big
+img2jpg-small() {
+  img="$1"
+  shift
+
+  magick "$img" $@ -resize 1080x\> -quality 95 -strip ${img%.*}-optimized.jpg
+}
+
+# Transcode any image to compressed-but-lossless PNG
+img2png() {
+  img="$1"
+  shift
+
+  magick "$img" $@ -strip -define png:compression-filter=5 \
+    -define png:compression-level=9 \
+    -define png:compression-strategy=1 \
+    -define png:exclude-chunk=all \
+    "${img%.*}-optimized.png"
+}

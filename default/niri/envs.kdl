@@ -1,0 +1,23 @@
+environment {
+  // Force all apps to use Wayland
+  GDK_BACKEND "wayland,x11,*"
+  QT_QPA_PLATFORM "wayland;xcb"
+  SDL_VIDEODRIVER "wayland"
+  OZONE_PLATFORM "wayland"
+  ELECTRON_OZONE_PLATFORM_HINT "wayland"
+  MOZ_ENABLE_WAYLAND "1"
+
+  // Style
+  // QT_STYLE_OVERRIDE "kvantum"
+  QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+
+  XDG_SESSION_TYPE "wayland"
+
+  // Allow better support for screen sharing (Google Meet, Discord, etc)
+  XDG_CURRENT_DESKTOP "niri"
+  XDG_SESSION_DESKTOP "niri"
+
+  // X11 through xwayland-satellite
+  DISPLAY ":0"
+}
+

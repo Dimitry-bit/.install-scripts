@@ -1,0 +1,21 @@
+// Default Ducky configuration
+include "../../.local/share/ducky/default/niri/autostart.kdl"
+include "../../.local/share/ducky/default/niri/bindings/media.kdl"
+include "../../.local/share/ducky/default/niri/bindings/tiling.kdl"
+include "../../.local/share/ducky/default/niri/envs.kdl"
+include "../../.local/share/ducky/default/niri/looknfeel.kdl"
+include "../../.local/share/ducky/default/niri/input.kdl"
+include "../../.local/share/ducky/default/niri/windows.kdl"
+
+// include optional=true "../ducky/current/theme/niri.kdl"
+
+include "bindings.kdl"
+include "monitors.kdl"
+
+// You can change the path where screenshots are saved.
+// A ~ at the front will be expanded to the home directory.
+// The path is formatted with strftime(3) to give you the screenshot date and time.
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// You can also set this to null to disable saving screenshots to disk.
+// screenshot-path null

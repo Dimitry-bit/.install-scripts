@@ -1,0 +1,5 @@
+include "./apps/system.kdl"
+include "./apps/password-managers.kdl"
+include "./apps/browsers.kdl"
+include "./apps/terminals.kdl"
+include "./apps/zed.kdl"

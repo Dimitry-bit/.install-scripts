@@ -1,0 +1,37 @@
+# File system
+if command -v lsd &> /dev/null; then
+  alias ls='lsd -lh --group-directories-first --icon=auto --color=never'
+  alias la='ls -a'
+  alias tree='lsd --tree --icon=auto --color=never'
+fi
+
+alias ff="fzf --preview 'bat --paging=never --style=numbers --color=auto {}'"
+
+if command -v zoxide &> /dev/null; then
+  alias cd="z"
+fi
+
+if command -v bat &> /dev/null; then
+  alias cat='bat --paging=never --style=plain --color=never'
+fi
+
+# Grep
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Git
+alias gl='git log --graph --abbrev-commit --decorate'
+
+# Noevim
+alias vim='nvim'
+alias vi='nvim'
+
+# Colorize output
+alias diff='diff --color=auto'
+
+# Get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4 | head -5'
+
+# Get top process eating cpu
+alias pscpu='ps auxf | sort -nr -k 3 | head -5'

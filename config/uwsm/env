@@ -1,0 +1,8 @@
+# Changes require a restart to take effect.
+
+# Ensure Omarchy bins are in the path
+export DUCKY_PATH=$HOME/.local/share/ducky/
+export PATH=$DUCKY_PATH/bin:$PATH
+
+# Set default terminal and editor
+source ~/.config/uwsm/default
