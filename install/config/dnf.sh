@@ -2,18 +2,18 @@
 
 set -euo pipefail
 
-readonly DNF_OPTIONS=(
-  defaultyes=True
-  keepcache=True
-)
+DNF_CONF_PATH="/etc/dnf/dnf.conf"
 
-if ! [[ $(id -u) = 0 ]]; then
-  echo "Run this script using sudo." >&2
-  exit 1
-fi
+set_option() {
+    local key="$1"
+    local value="$2"
 
-for option in "${DNF_OPTIONS[@]}"; do
-  if ! grep "${option}" "/etc/dnf/dnf.conf" &>/dev/null; then
-    echo "${option}" >>"/etc/dnf/dnf.conf"
-  fi
-done
+    if sudo grep -qE "^\s*${key}\s*=" "${DNF_CONF_PATH}"; then
+        sudo sed -i "s/^\s*${key}\s*=.*/${key}=${value}/g" "${DNF_CONF_PATH}"
+    else
+        echo "${key}=${value}" | sudo tee --append "${DNF_CONF_PATH}" >/dev/null
+    fi
+}
+
+set_option "defaultyes" "True"
+set_option "keepcache" "True"

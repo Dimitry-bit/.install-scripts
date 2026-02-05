@@ -2,15 +2,16 @@
 
 set -euo pipefail
 
-readonly DNF_PACKAGES=(
+DNF_PACKAGES=(
+  thunderbird
 )
 
-readonly TERRA_PACKAGES=(
+TERRA_PACKAGES=(
     zed
     starship
 )
 
-readonly FLATHUB_PACKAGES=(
+FLATHUB_PACKAGES=(
   md.obsidian.Obsidian
   io.missioncenter.MissionCenter
   io.github.kolunmi.Bazaar

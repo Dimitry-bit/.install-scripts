@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly BASE_PACKAGES=(
+BASE_PACKAGES=(
   # Minimal Workstation Environment Groups
   @base-graphical
   @core
@@ -36,8 +36,12 @@ readonly BASE_PACKAGES=(
   magick
 
   flatpak
-  thunderbird
 )
+
+if ! [[ $(id -u) = 0 ]]; then
+    echo "error: run this script with sudo." >&2
+    exit 1
+fi
 
 setup_base() {
   dnf install -y \

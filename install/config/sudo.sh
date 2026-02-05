@@ -4,19 +4,16 @@
 
 set -euo pipefail
 
-readonly POLICY_FILE_PATH="/etc/sudoers.d/99-disable-tty-tickets"
-readonly TMP_FILE="$(mktemp)"
+POLICY_FILE_PATH="/etc/sudoers.d/99-disable-tty-tickets"
+TMP_FILE="$(mktemp)"
 
-cleanup() {
-  rm "${TMP_FILE}"
-}
-trap cleanup EXIT
+trap 'rm -f "${TMP_FILE}"' EXIT
 
-echo "Defaults !tty_tickets" >"${TMP_FILE}"
-
-if visudo --check -f "${TMP_FILE}" &>/dev/null; then
-  cp "${TMP_FILE}" "${POLICY_FILE_PATH}"
-else
-  echo "error: Invalid sudoers syntax; aborting" >&2
-  exit 1
+echo "Defaults !tty_tickets" >> "${TMP_FILE}"
+if ! visudo --check -f "${TMP_FILE}" &>/dev/null; then
+    echo "error: invalid sudoers syntax; aborting" >&2
+    exit 1
 fi
+sudo install -o root -g root -m 0440 "${TMP_FILE}" "${POLICY_FILE_PATH}"
+
+visudo --check &>/dev/null

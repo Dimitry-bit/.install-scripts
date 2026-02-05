@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly CORE_NONFREE_FONTS=(
+CORE_NONFREE_FONTS=(
   google-roboto-fonts
   google-arimo-fonts
   google-cousine-fonts
@@ -10,23 +10,20 @@ readonly CORE_NONFREE_FONTS=(
   google-noto-sans-arabic-fonts
 )
 
-readonly NERD_FONTS=(
+NERD_FONTS=(
    JetBrainsMono
 )
 
-readonly TMP_DIR="$(mktemp -d)"
+FONT_DIR="${HOME}/.local/share/fonts"
+
+TMP_DIR="$(mktemp -d)"
+
+trap 'rm -rf "${TMP_DIR}"' EXIT
 
 if [[ $(id -u) = 0 ]]; then
-  FONT_DIR="/usr/local/share/fonts"
-else
-  FONT_DIR="$HOME/.local/share/fonts"
-  mkdir -p "${FONT_DIR}"
+    echo "error: do not run this script as root." >&2
+    exit 1
 fi
-
-cleanup() {
-    rm -rf "$TMP_DIR"
-}
-trap cleanup EXIT
 
 install_fonts() {
   sudo dnf install -y "${CORE_NONFREE_FONTS[@]}"
@@ -36,7 +33,7 @@ install_fonts() {
   curl --output-dir "${TMP_DIR}" -fLO https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
   sudo rpm -ivh --nodigest --nofiledigest --force "${TMP_DIR}/msttcore-fonts-installer-2.6-1.noarch.rpm"
 
-  # Donwload nerd fonts
+  # Download nerd fonts
   for font in "${NERD_FONTS}"; do
       curl --output-dir "${TMP_DIR}" -fLO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${font}.tar.xz"
       mkdir -p "${TMP_DIR}/${font}"
@@ -45,7 +42,7 @@ install_fonts() {
   done
 
   # Refresh font cache
-  fc-cache -f
+  fc-cache -f "${FONT_DIR}"
 }
 
 install_fonts
