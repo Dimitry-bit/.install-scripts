@@ -11,14 +11,17 @@ NIRI_PACKAGES=(
 
   niri
   dms
+  vicinae
 )
 
 install_niri() {
   sudo dnf copr enable -y "avengemedia/dms"
+  sudo dnf copr enable -y "quadratech188/vicinae"
   sudo dnf install -y "${NIRI_PACKAGES[@]}"
 
   sudo systemctl enable gdm.service
-  sudo systemctl --user add-wants niri.service dms
+  systemctl --user add-wants niri.service dms
+  systemctl --user enable vicinae
 }
 
 install_niri
