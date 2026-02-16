@@ -87,4 +87,4 @@ setup_terra() {
 setup_base
 setup_multimedia
 setup_flatpak
-# setup_terra
+setup_terra

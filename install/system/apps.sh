@@ -20,7 +20,7 @@ FLATHUB_PACKAGES=(
 )
 
 setup_apps() {
-  sudo dnf install -y "${DNF_PACKAGES[@]} ${TERRA_PACKAGES[@]}"
+  sudo dnf install -y "${DNF_PACKAGES[@]}" "${TERRA_PACKAGES[@]}"
   flatpak install -y flathub "${FLATHUB_PACKAGES[@]}"
 }
 
